@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>كنزات مستقبلية</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Hero Section مطور */
+    .hero {
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+      position: relative;
+      padding: 50px 20px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, #ffea0060, transparent 70%);
+      transform: rotate(25deg);
+      z-index: 0;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      color: #ffea00;
+      font-weight: 800;
+      text-shadow: 2px 2px 15px #000;
+      margin-bottom: 20px;
+      z-index: 1;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      color: #fff;
+      max-width: 800px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      z-index: 1;
+    }
+
+    .hero a.cta-btn {
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(145deg,#1c1c1c,#2c2c2c);
+      color: #ffea00;
+      padding: 15px 30px;
+      border-radius: 25px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 0 30px rgba(255,234,0,0.4);
+      transition: transform 0.3s, box-shadow 0.3s, color 0.3s;
+    }
+
+    .hero a.cta-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 50px #ffea00;
+      color: #fff;
+    }
+
+    /* Products Grid */
+    .products-section h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #ffea00;
+      margin-bottom: 40px;
+    }
+
+    .products-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      background: linear-gradient(145deg,#1c1c1c,#2c2c2c);
+      border-radius: 20px;
+      overflow: hidden;
+      color: #ffea00;
+      text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 50px rgba(255,234,0,0.6);
+      color: #fff;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-bottom: 2px solid #ffea00;
+    }
+
+    .product-info {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .product-info h3 {
+      margin: 0;
+      font-size: 22px;
+      color: #ffea00;
+    }
+
+    .product-info p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .product-info p strong {
+      color: #fff;
+    }
+
+    /* زر العودة للرئيسية */
+    .back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(145deg,#1c1c1c,#2c2c2c);
+      color: #ffea00;
+      padding: 15px 30px;
+      border-radius: 25px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 0 30px rgba(255,234,0,0.4);
+      transition: transform 0.3s, box-shadow 0.3s, color 0.3s;
+    }
+
+    .back-home:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 50px #ffea00;
+      color: #fff;
+    }
+
+    @media(max-width:900px) {
+      .hero h1 { font-size: 2.2rem; }
+      .hero p { font-size: 1.2rem; }
+      .product-info h3 { font-size: 18px; }
+      .product-info p { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Hero Section -->
+<section class="hero">
+  <h1>كنزات مستقبلية</h1>
+  <p>اكتشف تشكيلتنا المبتكرة والفاخرة من الكنّزات المستقبلية المصممة بأحدث التقنيات والتفاصيل الذكية.</p>
+  <a href="index.html" class="cta-btn">
+    <i class="fas fa-home"></i><span>العودة للرئيسية</span>
+  </a>
+</section>
+
+<!-- Products Section -->
+<section class="products-section">
+  <h2>تشكيلة الكنّزات</h2>
+  <div class="products-list">
+
+    <!-- كنزة 1 -->
+    <div class="product-card">
+      <img src="C.jpg" alt="كنزة شمسية ذكية">
+      <div class="product-info">
+        <h3>كنزة شمسية ذكية</h3>
+        <p><strong>المواصفات:</strong> مزودة بحساس حرارة وواجهة ذكية لعرض الوقت.</p>
+        <p><strong>السعر:</strong> 120$</p>
+        <p><strong>المقاسات المتاحة:</strong> S / M / L / XL</p>
+      </div>
+    </div>
+
+    <!-- كنزة 2 -->
+    <div class="product-card">
+      <img src="C.jpg" alt="كنزة مزودة بإضاءة LED">
+      <div class="product-info">
+        <h3>كنزة مزودة بإضاءة LED</h3>
+        <p><strong>المواصفات:</strong> يمكن تغيير ألوان الإضاءة عبر تطبيق الهاتف.</p>
+        <p><strong>السعر:</strong> 150$</p>
+        <p><strong>المقاسات المتاحة:</strong> M / L / XL</p>
+      </div>
+    </div>
+
+    <!-- كنزة 3 -->
+    <div class="product-card">
+      <img src="C.jpg" alt="كنزة بتقنية التبريد الذاتي">
+      <div class="product-info">
+        <h3>كنزة بتقنية التبريد الذاتي</h3>
+        <p><strong>المواصفات:</strong> تبقي الجسم بارداً أثناء الحرارة العالية.</p>
+        <p><strong>السعر:</strong> 130$</p>
+        <p><strong>المقاسات المتاحة:</strong> S / M / L</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Back to Home Button -->
+<section style="text-align:center; margin:50px 0;">
+  <a href="index.html" class="back-home">
+    <i class="fas fa-home"></i><span>العودة للرئيسية</span>
+  </a>
+</section>
+
+</body>
+</html>ml>
