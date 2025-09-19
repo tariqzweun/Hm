@@ -1,182 +1,201 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>بوتيك الأناقة النسائي</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-  <style>
-    body { font-family: 'Cairo', sans-serif; }
-    .product-img { aspect-ratio: 3/4; object-fit: cover; width: 100%; border-radius: 0.75rem; }
-    .slider-img { aspect-ratio: 16/9; object-fit: cover; width: 100%; border-radius: 0.75rem; }
-  </style>
+<meta charset="UTF-8">
+<title>اتش ام للالبسة النسائية</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<style>
+body { font-family: 'Cairo', sans-serif; }
+.product-img { aspect-ratio: 3/4; object-fit: cover; width: 100%; border-radius: 0.75rem; cursor:pointer; }
+.slider-img { width: 100%; height: 100%; object-fit: contain; border-radius: 0.75rem; cursor:pointer; }
+.productSwiper { width: 100%; max-height: 400px; }
+#cardsContainer > div { transition: all 0.5s ease; }
+</style>
 </head>
 <body class="bg-white text-gray-800">
 
-  <!-- الترحيب -->
-  <section class="bg-pink-50 py-10 text-center">
-    <h1 class="text-3xl font-bold mb-3">مرحباً بكم في <span class="text-pink-600">HM</span></h1>
-    <p class="text-gray-600 text-lg">اكتشفوا أحدث تشكيلاتنا وعروضنا الخاصة لهذا الموسم ✨</p>
-  </section>
-
-  <!-- سلايدر العروض -->
-  <div class="swiper mySwiper w-full max-w-7xl mx-auto h-auto my-8 px-4">
+<!-- سلايدر العرض الأعلى -->
+<section class="w-full max-w-7xl mx-auto my-4 px-4">
+  <div class="swiper topSlider w-full h-[60vh] rounded-xl overflow-hidden">
     <div class="swiper-wrapper">
-      <div class="swiper-slide"><img src="C.jpg" class="slider-img"></div>
-      <div class="swiper-slide"><img src="C1.jpg" class="slider-img"></div>
-      <div class="swiper-slide"><img src="C2.jpg" class="slider-img"></div>
+      <div class="swiper-slide"><img src="C.jpg" class="slider-img w-full h-full object-cover rounded-xl"></div>
+      <div class="swiper-slide"><img src="C1.jpg" class="slider-img w-full h-full object-cover rounded-xl"></div>
+      <div class="swiper-slide"><img src="C2.jpg" class="slider-img w-full h-full object-cover rounded-xl"></div>
+      <div class="swiper-slide"><img src="C3.jpg" class="slider-img w-full h-full object-cover rounded-xl"></div>
     </div>
     <div class="swiper-pagination"></div>
   </div>
-
-  <!-- الهيدر -->
-  <header class="max-w-7xl mx-auto px-6 flex items-center justify-between mb-6">
-    <h2 class="text-2xl font-bold">منتجاتنا</h2>
-    <div class="flex gap-3">
-      <button onclick="toggleCart()" class="relative bg-gray-100 px-4 py-2 rounded-lg">
-        🛒 السلة <span id="cart-count" class="absolute -top-2 -right-2 bg-pink-600 text-white text-xs px-2 py-0.5 rounded-full">0</span>
-      </button>
-    </div>
-  </header>
-
-  <!-- المنتجات -->
-  <main class="max-w-7xl mx-auto px-6">
-    <div id="products" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"></div>
-  </main>
-
-  <!-- سلة جانبية -->
-  <aside id="cart" class="hidden fixed top-0 right-0 w-80 h-full bg-white shadow-2xl p-4 z-50 overflow-y-auto">
-    <h3 class="text-lg font-bold mb-4">سلة التسوق</h3>
-    <div id="cart-items" class="space-y-3 text-sm text-gray-600">السلة فارغة</div>
-    <div class="mt-4 border-t pt-4">
-      <div class="flex justify-between">
-        <span>الإجمالي</span>
-        <span id="cart-total" class="font-bold">0 ل.س</span>
-      </div>
-      <button onclick="openCheckout()" class="mt-4 w-full bg-pink-600 text-white py-2 rounded-lg">إتمام الشراء</button>
-    </div>
-    <button onclick="toggleCart()" class="absolute top-4 left-4 text-gray-500">✕</button>
-  </aside>
-
-  <!-- نافذة الطلب -->
-  <div id="checkout" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-2xl p-6 w-full max-w-md">
-      <h3 class="text-xl font-bold mb-4">إتمام الطلب</h3>
-      <input id="name" placeholder="الاسم الكامل" class="w-full p-3 border rounded mb-2">
-      <input id="phone" placeholder="رقم الهاتف" class="w-full p-3 border rounded mb-2">
-      <input id="address" placeholder="العنوان" class="w-full p-3 border rounded mb-2">
-      <textarea id="note" placeholder="ملاحظات" class="w-full p-3 border rounded mb-3"></textarea>
-      <div class="flex gap-2">
-        <button onclick="sendToWhatsApp()" class="flex-1 bg-green-600 text-white py-2 rounded-lg">إرسال عبر واتساب</button>
-        <button onclick="closeCheckout()" class="flex-1 bg-gray-200 py-2 rounded-lg">إلغاء</button>
-      </div>
-    </div>
-  </div>
-
-  <footer class="max-w-7xl mx-auto text-center text-gray-500 text-sm py-6 mt-10 border-t">
-    © <span id="year"></span>HM
-  </footer>
+</section>
 
 <script>
-const ownerPhone = "963980351186"; // ضع رقم الواتساب
+new Swiper(".topSlider", {
+  loop: true,
+  autoplay: { delay: 2000 },
+  pagination: { el: ".swiper-pagination", clickable: true },
+});
+</script>
 
-const products = [
-  {id:1,title:"فستان سهرة أسود",price:120000,img:"C.jpg",sizes:["S","M","L","XL"],colors:["أسود","ذهبي","فضي"]},
-  {id:2,title:"جاكيت جينز نسائي",price:75000,img:"C1.jpg",sizes:["M","L","XL"],colors:["أزرق","أسود"]},
-  {id:3,title:"بلوزة حريرية",price:45000,img:"C2.jpg",sizes:["S","M","L"],colors:["أبيض","وردي","أزرق"]},
-  {id:4,title:"تنورة قصيرة",price:38000,img:"C1.jpg",sizes:["S","M","L"],colors:["أسود","أحمر"]},
-  {id:5,title:"فستان أبيض صيفي",price:95000,img:"C2.jpg",sizes:["S","M","L"],colors:["أبيض","زهري"]},
-];
+<!-- الترحيب -->
+<section class="bg-pink-50 py-10 text-center">
+<h1 class="text-3xl font-bold mb-3">مرحباً بكم في <span class="text-pink-600">HM</span></h1>
+<p class="text-gray-600 text-lg">اكتشفوا أحدث تشكيلاتنا وعروضنا الخاصة لهذا الموسم ✨</p>
+</section>
 
-let cart = [];
-let selectedProduct=null;
+<!-- الهيدر -->
+<header class="max-w-7xl mx-auto px-6 flex items-center justify-between mb-6">
+<h2 class="text-2xl font-bold">منتجاتنا</h2>
+<div class="flex gap-3">
+<button onclick="toggleCart()" class="relative bg-gray-100 px-4 py-2 rounded-lg">
+🛒 السلة <span id="cart-count" class="absolute -top-2 -right-2 bg-pink-600 text-white text-xs px-2 py-0.5 rounded-full">0</span>
+</button>
+</div>
+</header>
 
-const productsDiv = document.getElementById("products");
+<!-- المنتجات -->
+<main class="max-w-7xl mx-auto px-6">
+<div id="products" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"></div>
+</main>
+
+<!-- سلة جانبية -->
+<aside id="cart" class="hidden fixed top-0 right-0 w-80 h-full bg-white shadow-2xl p-4 z-50 overflow-y-auto">
+<h3 class="text-lg font-bold mb-4">سلة التسوق</h3>
+<div id="cart-items" class="space-y-3 text-sm text-gray-600">السلة فارغة</div>
+<div class="mt-4 border-t pt-4">
+<div class="flex justify-between">
+<span>الإجمالي</span>
+<span id="cart-total" class="font-bold">0 ل.س</span>
+</div>
+<button onclick="openCheckout()" class="mt-4 w-full bg-pink-600 text-white py-2 rounded-lg">إتمام الشراء</button>
+</div>
+<button onclick="toggleCart()" class="absolute top-4 left-4 text-gray-500">✕</button>
+</aside>
+
+<!-- نافذة إتمام الطلب -->
+<div id="checkout" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+<div class="bg-white rounded-2xl p-6 w-full max-w-md">
+<h3 class="text-xl font-bold mb-4">إتمام الطلب</h3>
+<input id="name" placeholder="الاسم الكامل" class="w-full p-3 border rounded mb-2">
+<input id="phone" placeholder="رقم الهاتف" class="w-full p-3 border rounded mb-2">
+<input id="address" placeholder="العنوان" class="w-full p-3 border rounded mb-2">
+<textarea id="note" placeholder="ملاحظات" class="w-full p-3 border rounded mb-3"></textarea>
+<div class="flex gap-2">
+<button onclick="sendToWhatsApp()" class="flex-1 bg-green-600 text-white py-2 rounded-lg">إرسال عبر واتساب</button>
+<button onclick="closeCheckout()" class="flex-1 bg-gray-200 py-2 rounded-lg">إلغاء</button>
+</div>
+</div>
+</div>
+
+<!-- مودال المنتجات -->
+<div id="productModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+<div class="bg-white w-full max-w-3xl rounded-2xl overflow-hidden relative">
+<div class="swiper productSwiper w-full max-h-[400px]">
+<div class="swiper-wrapper" id="modalImages"></div>
+<div class="swiper-pagination"></div>
+</div>
+<div class="p-4">
+<h3 id="modalTitle" class="text-xl font-bold mb-2">اسم المنتج</h3>
+<p id="modalPrice" class="text-pink-600 font-bold mb-2">0 ل.س</p>
+<select id="modalSize" class="border p-2 rounded mb-2 w-full"></select>
+<select id="modalColor" class="border p-2 rounded mb-4 w-full"></select>
+<div class="flex gap-2">
+<button onclick="addToCartFromModal()" class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg">أضف إلى السلة</button>
+<button onclick="buyNowFromModal()" class="flex-1 bg-pink-600 text-white py-2 rounded-lg">اشترِ الآن</button>
+</div>
+</div>
+<button onclick="closeProductModal()" class="absolute top-4 right-4 text-gray-500 text-2xl">✕</button>
+</div>
+</div>
+
+<!-- مودال تكبير صور المنتجات -->
+<div id="imageModal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+<img id="modalImageContent" src="" class="max-h-full max-w-full rounded-xl shadow-lg">
+<button onclick="closeImageModal()" class="absolute top-4 right-4 text-white text-3xl">✕</button>
+</div>
+
+<!-- مودال تكبير صور السلايدر العلوي -->
+<div id="topSliderModal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+<img id="topSliderModalImg" src="" class="max-h-full max-w-full rounded-xl shadow-lg">
+<button onclick="closeTopSliderModal()" class="absolute top-4 right-4 text-white text-3xl">✕</button>
+</div>
+
+<!-- هامبرغر علوي -->
+<button id="topHamburgerBtn" class="fixed top-4 left-4 bg-pink-600 text-white p-3 rounded-full shadow-lg z-50 text-2xl">☰</button>
+
+<!-- قائمة الهامبرغر العلوية -->
+<div id="topHamburgerMenu" class="hidden fixed top-16 left-4 w-64 bg-white border rounded-xl shadow-xl p-4 z-50 space-y-3">
+  <button onclick="showCard('contact')" class="w-full text-right bg-gray-100 py-2 px-3 rounded hover:bg-gray-200">تواصل معنا</button>
+  <button onclick="showCard('address')" class="w-full text-right bg-gray-100 py-2 px-3 rounded hover:bg-gray-200">العنوان</button>
+  <button onclick="showCard('features')" class="w-full text-right bg-gray-100 py-2 px-3 rounded hover:bg-gray-200">ميزاتنا</button>
+</div>
+
+<!-- البطاقات أسفل المنتجات -->
+<div id="cardsContainer" class="max-w-7xl mx-auto px-6 mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+
+<!-- Footer مع أيقونات -->
+<footer class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-6 mt-10 border-t text-gray-500">
+<div>© <span id="year"></span> HM</div>
+<div class="flex gap-4">
+<a href="https://wa.me/963980351186" target="_blank" class="hover:text-green-600" title="واتساب">واتساب</a>
+<a href="https://facebook.com" target="_blank" class="hover:text-blue-600" title="فيسبوك">فيسبوك</a>
+<a href="https://instagram.com" target="_blank" class="hover:text-pink-500" title="إنستغرام">إنستغرام</a>
+</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom@9.4.0/dist/panzoom.min.js"></script>
+
+<script>
+// بيانات المنتجات
+const ownerPhone="963980351186";
+const products=[
+{id:1,title:"فستان سهرة أسود",price:120000,images:["C.jpg","C1.jpg","C2.jpg","C3.jpg"],sizes:["S","M","L","XL"],colors:["أسود","ذهبي","فضي"]},
+{id:2,title:"جاكيت جينز نسائي",price:75000,images:["C1.jpg","C2.jpg","C3.jpg","C4.jpg"],sizes:["M","L","XL"],colors:["أزرق","أسود"]},
+{id:3,title:"بلوزة حريرية",price:45000,images:["C2.jpg","C3.jpg","C4.jpg","C.jpg"],sizes:["S","M","L"],colors:["أبيض","وردي","أزرق"]},
+{id:4,title:"تنورة قصيرة",price:38000,images:["C1.jpg","C2.jpg","C3.jpg","C4.jpg"],sizes:["S","M","L"],colors:["أسود","أحمر"]},
+{id:5,title:"فستان أبيض صيفي",price:95000,images:["C2.jpg","C3.jpg","C4.jpg","C.jpg"],sizes:["S","M","L"],colors:["أبيض","زهري"]}];
+
+let cart=[], selectedProduct=null, currentModalProduct=null;
+
+// إنشاء المنتجات
+const productsDiv=document.getElementById("products");
 products.forEach(p=>{
   const el=document.createElement("div");
   el.className="bg-white border rounded-xl p-3 shadow hover:shadow-lg transition flex flex-col";
-  el.innerHTML=`
-    <img src="${p.img}" class="product-img mb-3">
-    <h3 class="font-semibold text-lg">${p.title}</h3>
-    <p class="text-pink-600 font-bold mb-2">${p.price.toLocaleString()} ل.س</p>
-
-    <select id="size-${p.id}" class="border p-2 rounded mb-2">
-      <option value="">اختر المقاس</option>
-      ${p.sizes.map(sz=>`<option value="${sz}">${sz}</option>`).join("")}
-    </select>
-
-    <select id="color-${p.id}" class="border p-2 rounded mb-2">
-      <option value="">اختر اللون</option>
-      ${p.colors.map(c=>`<option value="${c}">${c}</option>`).join("")}
-    </select>
-
-    <div class="flex gap-2 mt-auto">
-      <button onclick="addToCart(${p.id})" class="flex-1 bg-gray-200 text-gray-700 px-3 py-2 rounded-lg">أضف إلى السلة</button>
-      <button onclick="buyNow(${p.id})" class="flex-1 bg-pink-600 text-white px-3 py-2 rounded-lg">اشترِ الآن</button>
-    </div>
-  `;
+  el.innerHTML=`<img src="${p.images[0]}" class="product-img mb-3" onclick="openProductModal(${p.id})">
+  <h3 class="font-semibold text-lg">${p.title}</h3<p class="text-pink-600 font-bold mb-2">${p.price.toLocaleString()} ل.س</p>`;
   productsDiv.appendChild(el);
-});
-
-function addToCart(id){
-  const product=products.find(p=>p.id===id);
-  const size=document.getElementById(`size-${id}`).value;
-  const color=document.getElementById(`color-${id}`).value;
-  if(!size||!color){alert("اختر المقاس واللون");return;}
-  const existing=cart.find(i=>i.id===id && i.size===size && i.color===color);
-  if(existing) existing.qty++;
-  else cart.push({id,title:product.title,price:product.price,size,color,qty:1});
-  renderCart();
-  toggleCart(true);
-}
-
-function buyNow(id){
-  const product=products.find(p=>p.id===id);
-  const size=document.getElementById(`size-${id}`).value;
-  const color=document.getElementById(`color-${id}`).value;
-  if(!size||!color){alert("اختر المقاس واللون");return;}
-  selectedProduct={...product,size,color,qty:1};
-  openCheckout();
-}
-
-function renderCart(){
+  });
+  
+  // وظائف السلة
+  function renderCart(){
   const cartItems=document.getElementById("cart-items");
   const total=document.getElementById("cart-total");
   const count=document.getElementById("cart-count");
   if(cart.length===0){cartItems.innerHTML="السلة فارغة";total.textContent="0 ل.س";count.textContent="0";return;}
   cartItems.innerHTML=""; let sum=0;
-  cart.forEach((it,idx)=>{sum+=it.qty*it.price;
-    const row=document.createElement("div");
-    row.className="flex items-center justify-between";
-    row.innerHTML=`
-      <div>
-        <div class="font-semibold">${it.title}</div>
-        <div class="text-xs text-gray-500">${it.size} · ${it.color} · ${it.price.toLocaleString()} ل.س</div>
-      </div>
-      <div class="flex items-center gap-2">
-        <button onclick="changeQty(${idx},-1)" class="px-2 bg-gray-100 rounded">-</button>
-        <span>${it.qty}</span>
-        <button onclick="changeQty(${idx},1)" class="px-2 bg-gray-100 rounded">+</button>
-      </div>`;
-    cartItems.appendChild(row);
+  cart.forEach((it,idx)=>{
+  sum+=it.qty*it.price;
+  const row=document.createElement("div");
+  row.className="flex items-center justify-between";
+  row.innerHTML=`<div><div class="font-semibold">${it.title}</div><div class="text-xs text-gray-500">${it.size} · ${it.color} · ${it.price.toLocaleString()} ل.س</div></div>
+  <div class="flex items-center gap-2">
+  <button onclick="changeQty(${idx},-1)" class="px-2 bg-gray-100 rounded">-</button>
+  <span>${it.qty}</span>
+  <button onclick="changeQty(${idx},1)" class="px-2 bg-gray-100 rounded">+</button></div>`;
+  cartItems.appendChild(row);
   });
   total.textContent=sum.toLocaleString()+" ل.س";
-  count.textContent=cart.length;
-}
-function changeQty(idx,delta){cart[idx].qty=Math.max(1,cart[idx].qty+delta);renderCart();}
-
-function toggleCart(forceOpen=false){
-  const cartEl=document.getElementById("cart");
-  if(forceOpen) cartEl.classList.remove("hidden");
-  else cartEl.classList.toggle("hidden");
-}
-
-function openCheckout(){document.getElementById("checkout").classList.remove("hidden");}
-function closeCheckout(){document.getElementById("checkout").classList.add("hidden");}
-
-function sendToWhatsApp(){
+  count.textContent=cart.reduce((s,it)=>s+it.qty,0);
+  }
+  
+  function changeQty(idx,delta){cart[idx].qty=Math.max(1,cart[idx].qty+delta);renderCart();}
+  function toggleCart(forceOpen=false){const cartEl=document.getElementById("cart");if(forceOpen) cartEl.classList.remove("hidden"); else cartEl.classList.toggle("hidden");}
+  function openCheckout(){document.getElementById("checkout").classList.remove("hidden");}
+  function closeCheckout(){document.getElementById("checkout").classList.add("hidden");}
+  
+  function sendToWhatsApp(){
   const name=document.getElementById("name").value.trim();
   const phone=document.getElementById("phone").value.trim();
   const address=document.getElementById("address").value.trim();
@@ -184,19 +203,102 @@ function sendToWhatsApp(){
   if(!name||!phone||!address){alert("يرجى إدخال البيانات كاملة");return;}
   let text=`طلب جديد%0Aالاسم: ${name}%0Aالهاتف: ${phone}%0Aالعنوان: ${address}`;
   if(note) text+=`%0Aملاحظة: ${note}`;
-  if(selectedProduct){
-    text+=`%0A--- تفاصيل المنتج ---`;
-    text+=`%0A${selectedProduct.title} - ${selectedProduct.size} - ${selectedProduct.color} = ${selectedProduct.price.toLocaleString()} ل.س`;
-  } else if(cart.length>0){
-    text+="%0A--- محتويات السلة ---";
-    cart.forEach((it,i)=>{text+=`%0A${i+1}. ${it.title} - ${it.size} - ${it.color} x${it.qty} = ${(it.qty*it.price).toLocaleString()} ل.س`;});
-    text+=`%0Aالإجمالي: ${cart.reduce((s,it)=>s+it.qty*it.price,0).toLocaleString()} ل.س`;
-  }
+  if(selectedProduct){text+=`%0A--- تفاصيل المنتج ---%0A${selectedProduct.title} - ${selectedProduct.size} - ${selectedProduct.color} = ${selectedProduct.price.toLocaleString()} ل.س`;}
+  else if(cart.length>0){text+="%0A--- محتويات السلة ---";cart.forEach((it,i)=>{text+=`%0A${i+1}. ${it.title} - ${it.size} - ${it.color} x${it.qty} = ${(it.qty*it.price).toLocaleString()} ل.س`;});text+=`%0Aالإجمالي: ${cart.reduce((s,it)=>s+it.qty*it.price,0).toLocaleString()} ل.س`;}
   window.open(`https://wa.me/${ownerPhone}?text=${text}`,"_blank");
-}
-
-document.getElementById("year").textContent=new Date().getFullYear();
-new Swiper(".mySwiper",{pagination:{el:".swiper-pagination"},autoplay:{delay:3000}});
-</script>
-</body>
-</html>
+  }
+  
+  // فتح المودال للمنتجات
+  function openProductModal(id){
+  const product = products.find(p=>p.id===id);
+  currentModalProduct=product;
+  selectedProduct=null;
+  document.getElementById("modalTitle").textContent=product.title;
+  document.getElementById("modalPrice").textContent=product.price.toLocaleString()+" ل.س";
+  
+  // الصور
+  const modalImages=document.getElementById("modalImages");
+  modalImages.innerHTML="";
+  product.images.forEach(img=>{
+  const slide=document.createElement("div");
+  slide.className="swiper-slide";
+  slide.innerHTML=`<img src="${img}" class="slider-img" onclick="openImageModal('${img}')">`;
+  modalImages.appendChild(slide);
+  });
+  
+  // سلايدر المودال
+  new Swiper(".productSwiper",{pagination:{el:".swiper-pagination"}, autoplay:{delay:3000}});
+  
+  // المقاسات
+  const sizeSelect=document.getElementById("modalSize");
+  sizeSelect.innerHTML='<option value="">اختر المقاس</option>'+product.sizes.map(s=>`<option value="${s}">${s}</option>`).join('');
+  
+  // الألوان
+  const colorSelect=document.getElementById("modalColor");
+  colorSelect.innerHTML='<option value="">اختر اللون</option>'+product.colors.map(c=>`<option value="${c}">${c}</option>`).join('');
+  
+  document.getElementById("productModal").classList.remove("hidden");
+  }
+  
+  function closeProductModal(){document.getElementById("productModal").classList.add("hidden");}
+  
+  // تكبير الصور
+  function openImageModal(src){
+  const imgModal=document.getElementById("imageModal");
+  const imgContent=document.getElementById("modalImageContent");
+  imgContent.src=src;
+  imgModal.classList.remove("hidden");
+  Panzoom(imgContent);
+  }
+  function closeImageModal(){document.getElementById("imageModal").classList.add("hidden");}
+  
+  // تكبير صور السلايدر العلوي
+  document.querySelectorAll(".topSlider .slider-img").forEach(img=>{
+  img.addEventListener("click",()=>{openTopSliderModal(img.src);});
+  });
+  function openTopSliderModal(src){
+  const modal=document.getElementById("topSliderModal");
+  const img=document.getElementById("topSliderModalImg");
+  img.src=src;
+  modal.classList.remove("hidden");
+  Panzoom(img);
+  }
+  function closeTopSliderModal(){document.getElementById("topSliderModal").classList.add("hidden");}
+  
+  // إضافة للسلة وشراء مباشر من المودال
+  function addToCartFromModal(){
+  const size=document.getElementById("modalSize").value;
+  const color=document.getElementById("modalColor").value;
+  if(!size||!color){alert("اختر المقاس واللون");return;}
+  const existing=cart.find(i=>i.id===currentModalProduct.id && i.size===size && i.color===color);
+  if(existing) existing.qty++; else cart.push({id:currentModalProduct.id,title:currentModalProduct.title,price:currentModalProduct.price,size,color,qty:1});
+  renderCart(); toggleCart(true); closeProductModal();
+  }
+  function buyNowFromModal(){
+  const size=document.getElementById("modalSize").value;
+  const color=document.getElementById("modalColor").value;
+  if(!size||!color){alert("اختر المقاس واللون");return;}
+  selectedProduct={...currentModalProduct,size,color,qty:1};
+  openCheckout();
+  }
+  
+  // الهامبرغر العلوي وبطاقاته الإبداعية
+  const topHamburgerBtn = document.getElementById("topHamburgerBtn");
+  const topHamburgerMenu = document.getElementById("topHamburgerMenu");
+  topHamburgerBtn.addEventListener("click",()=>topHamburgerMenu.classList.toggle("hidden"));
+  
+  function showCard(type){
+  const cardsContainer=document.getElementById("cardsContainer");
+  let card=document.createElement("div");
+  card.className="p-4 rounded-lg shadow-lg transition hover:scale-105 duration-300";
+  if(type==="contact") card.innerHTML="<div class='bg-pink-50 p-4 rounded-lg'>📞 تواصل معنا عبر واتساب: 963980351186</div>";
+  else if(type==="address") card.innerHTML="<div class='bg-green-50 p-4 rounded-lg'>📍 عنوان المتجر: شارع الأناقة، دمشق</div>";
+  else if(type==="features") card.innerHTML="<div class='bg-blue-50 p-4 rounded-lg'>✨ نقدم أحدث تشكيلات الملابس النسائية وجودة عالية</div>";
+  cardsContainer.appendChild(card);
+  card.scrollIntoView({behavior:"smooth", block:"start"});
+  }
+  
+  document.getElementById("year").textContent=new Date().getFullYear();
+  </script>
+  </body>
+  </html>
