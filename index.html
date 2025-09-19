@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>بوتيك الأناقة النسائي</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <style>
+    body { font-family: 'Cairo', sans-serif; }
+    .product-img { aspect-ratio: 3/4; object-fit: cover; width: 100%; border-radius: 0.75rem; }
+    .slider-img { aspect-ratio: 16/9; object-fit: cover; width: 100%; border-radius: 0.75rem; }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+  <!-- الترحيب -->
+  <section class="bg-pink-50 py-10 text-center">
+    <h1 class="text-3xl font-bold mb-3">مرحباً بكم في <span class="text-pink-600">HM</span></h1>
+    <p class="text-gray-600 text-lg">اكتشفوا أحدث تشكيلاتنا وعروضنا الخاصة لهذا الموسم ✨</p>
+  </section>
+
+  <!-- سلايدر العروض -->
+  <div class="swiper mySwiper w-full max-w-7xl mx-auto h-auto my-8 px-4">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><img src="C.jpg" class="slider-img"></div>
+      <div class="swiper-slide"><img src="C1.jpg" class="slider-img"></div>
+      <div class="swiper-slide"><img src="C2.jpg" class="slider-img"></div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <!-- الهيدر -->
+  <header class="max-w-7xl mx-auto px-6 flex items-center justify-between mb-6">
+    <h2 class="text-2xl font-bold">منتجاتنا</h2>
+    <div class="flex gap-3">
+      <button onclick="toggleCart()" class="relative bg-gray-100 px-4 py-2 rounded-lg">
+        🛒 السلة <span id="cart-count" class="absolute -top-2 -right-2 bg-pink-600 text-white text-xs px-2 py-0.5 rounded-full">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- المنتجات -->
+  <main class="max-w-7xl mx-auto px-6">
+    <div id="products" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"></div>
+  </main>
+
+  <!-- سلة جانبية -->
+  <aside id="cart" class="hidden fixed top-0 right-0 w-80 h-full bg-white shadow-2xl p-4 z-50 overflow-y-auto">
+    <h3 class="text-lg font-bold mb-4">سلة التسوق</h3>
+    <div id="cart-items" class="space-y-3 text-sm text-gray-600">السلة فارغة</div>
+    <div class="mt-4 border-t pt-4">
+      <div class="flex justify-between">
+        <span>الإجمالي</span>
+        <span id="cart-total" class="font-bold">0 ل.س</span>
+      </div>
+      <button onclick="openCheckout()" class="mt-4 w-full bg-pink-600 text-white py-2 rounded-lg">إتمام الشراء</button>
+    </div>
+    <button onclick="toggleCart()" class="absolute top-4 left-4 text-gray-500">✕</button>
+  </aside>
+
+  <!-- نافذة الطلب -->
+  <div id="checkout" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl p-6 w-full max-w-md">
+      <h3 class="text-xl font-bold mb-4">إتمام الطلب</h3>
+      <input id="name" placeholder="الاسم الكامل" class="w-full p-3 border rounded mb-2">
+      <input id="phone" placeholder="رقم الهاتف" class="w-full p-3 border rounded mb-2">
+      <input id="address" placeholder="العنوان" class="w-full p-3 border rounded mb-2">
+      <textarea id="note" placeholder="ملاحظات" class="w-full p-3 border rounded mb-3"></textarea>
+      <div class="flex gap-2">
+        <button onclick="sendToWhatsApp()" class="flex-1 bg-green-600 text-white py-2 rounded-lg">إرسال عبر واتساب</button>
+        <button onclick="closeCheckout()" class="flex-1 bg-gray-200 py-2 rounded-lg">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="max-w-7xl mx-auto text-center text-gray-500 text-sm py-6 mt-10 border-t">
+    © <span id="year"></span>HM
+  </footer>
+
+<script>
+const ownerPhone = "963980351186"; // ضع رقم الواتساب
+
+const products = [
+  {id:1,title:"فستان سهرة أسود",price:120000,img:"C.jpg",sizes:["S","M","L","XL"],colors:["أسود","ذهبي","فضي"]},
+  {id:2,title:"جاكيت جينز نسائي",price:75000,img:"C1.jpg",sizes:["M","L","XL"],colors:["أزرق","أسود"]},
+  {id:3,title:"بلوزة حريرية",price:45000,img:"C2.jpg",sizes:["S","M","L"],colors:["أبيض","وردي","أزرق"]},
+  {id:4,title:"تنورة قصيرة",price:38000,img:"C1.jpg",sizes:["S","M","L"],colors:["أسود","أحمر"]},
+  {id:5,title:"فستان أبيض صيفي",price:95000,img:"C2.jpg",sizes:["S","M","L"],colors:["أبيض","زهري"]},
+];
+
+let cart = [];
+let selectedProduct=null;
+
+const productsDiv = document.getElementById("products");
+products.forEach(p=>{
+  const el=document.createElement("div");
+  el.className="bg-white border rounded-xl p-3 shadow hover:shadow-lg transition flex flex-col";
+  el.innerHTML=`
+    <img src="${p.img}" class="product-img mb-3">
+    <h3 class="font-semibold text-lg">${p.title}</h3>
+    <p class="text-pink-600 font-bold mb-2">${p.price.toLocaleString()} ل.س</p>
+
+    <select id="size-${p.id}" class="border p-2 rounded mb-2">
+      <option value="">اختر المقاس</option>
+      ${p.sizes.map(sz=>`<option value="${sz}">${sz}</option>`).join("")}
+    </select>
+
+    <select id="color-${p.id}" class="border p-2 rounded mb-2">
+      <option value="">اختر اللون</option>
+      ${p.colors.map(c=>`<option value="${c}">${c}</option>`).join("")}
+    </select>
+
+    <div class="flex gap-2 mt-auto">
+      <button onclick="addToCart(${p.id})" class="flex-1 bg-gray-200 text-gray-700 px-3 py-2 rounded-lg">أضف إلى السلة</button>
+      <button onclick="buyNow(${p.id})" class="flex-1 bg-pink-600 text-white px-3 py-2 rounded-lg">اشترِ الآن</button>
+    </div>
+  `;
+  productsDiv.appendChild(el);
+});
+
+function addToCart(id){
+  const product=products.find(p=>p.id===id);
+  const size=document.getElementById(`size-${id}`).value;
+  const color=document.getElementById(`color-${id}`).value;
+  if(!size||!color){alert("اختر المقاس واللون");return;}
+  const existing=cart.find(i=>i.id===id && i.size===size && i.color===color);
+  if(existing) existing.qty++;
+  else cart.push({id,title:product.title,price:product.price,size,color,qty:1});
+  renderCart();
+  toggleCart(true);
+}
+
+function buyNow(id){
+  const product=products.find(p=>p.id===id);
+  const size=document.getElementById(`size-${id}`).value;
+  const color=document.getElementById(`color-${id}`).value;
+  if(!size||!color){alert("اختر المقاس واللون");return;}
+  selectedProduct={...product,size,color,qty:1};
+  openCheckout();
+}
+
+function renderCart(){
+  const cartItems=document.getElementById("cart-items");
+  const total=document.getElementById("cart-total");
+  const count=document.getElementById("cart-count");
+  if(cart.length===0){cartItems.innerHTML="السلة فارغة";total.textContent="0 ل.س";count.textContent="0";return;}
+  cartItems.innerHTML=""; let sum=0;
+  cart.forEach((it,idx)=>{sum+=it.qty*it.price;
+    const row=document.createElement("div");
+    row.className="flex items-center justify-between";
+    row.innerHTML=`
+      <div>
+        <div class="font-semibold">${it.title}</div>
+        <div class="text-xs text-gray-500">${it.size} · ${it.color} · ${it.price.toLocaleString()} ل.س</div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="changeQty(${idx},-1)" class="px-2 bg-gray-100 rounded">-</button>
+        <span>${it.qty}</span>
+        <button onclick="changeQty(${idx},1)" class="px-2 bg-gray-100 rounded">+</button>
+      </div>`;
+    cartItems.appendChild(row);
+  });
+  total.textContent=sum.toLocaleString()+" ل.س";
+  count.textContent=cart.length;
+}
+function changeQty(idx,delta){cart[idx].qty=Math.max(1,cart[idx].qty+delta);renderCart();}
+
+function toggleCart(forceOpen=false){
+  const cartEl=document.getElementById("cart");
+  if(forceOpen) cartEl.classList.remove("hidden");
+  else cartEl.classList.toggle("hidden");
+}
+
+function openCheckout(){document.getElementById("checkout").classList.remove("hidden");}
+function closeCheckout(){document.getElementById("checkout").classList.add("hidden");}
+
+function sendToWhatsApp(){
+  const name=document.getElementById("name").value.trim();
+  const phone=document.getElementById("phone").value.trim();
+  const address=document.getElementById("address").value.trim();
+  const note=document.getElementById("note").value.trim();
+  if(!name||!phone||!address){alert("يرجى إدخال البيانات كاملة");return;}
+  let text=`طلب جديد%0Aالاسم: ${name}%0Aالهاتف: ${phone}%0Aالعنوان: ${address}`;
+  if(note) text+=`%0Aملاحظة: ${note}`;
+  if(selectedProduct){
+    text+=`%0A--- تفاصيل المنتج ---`;
+    text+=`%0A${selectedProduct.title} - ${selectedProduct.size} - ${selectedProduct.color} = ${selectedProduct.price.toLocaleString()} ل.س`;
+  } else if(cart.length>0){
+    text+="%0A--- محتويات السلة ---";
+    cart.forEach((it,i)=>{text+=`%0A${i+1}. ${it.title} - ${it.size} - ${it.color} x${it.qty} = ${(it.qty*it.price).toLocaleString()} ل.س`;});
+    text+=`%0Aالإجمالي: ${cart.reduce((s,it)=>s+it.qty*it.price,0).toLocaleString()} ل.س`;
+  }
+  window.open(`https://wa.me/${ownerPhone}?text=${text}`,"_blank");
+}
+
+document.getElementById("year").textContent=new Date().getFullYear();
+new Swiper(".mySwiper",{pagination:{el:".swiper-pagination"},autoplay:{delay:3000}});
+</script>
+</body>
+</html>:{delay:3000}});
+</script>
+</body>
+</html>/script>
+</body>
+</html>:{delay:3000}});
+</script>
+</body>
+</html>:{delay:3000}});
+</script>
+</body>
+</html>script>
+</body>
+</html>toplay:{delay:3000}});
+</script>
+</body>
+</html>lay:{delay:3000}});
+</script>
+</body>
+</html>agination:{el:".swiper-pagination"},autoplay:{delay:3000}});
+</script>
+</body>
+</html>
